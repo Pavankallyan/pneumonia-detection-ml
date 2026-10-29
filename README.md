@@ -31,6 +31,7 @@ Pneumonia recall: **97%** (catches 97% of all pneumonia cases).
 ├── notebooks/      # eda, preprocessing, baseline_cnn, transfer_learning, evaluation, classical_ml
 ├── src/            # result-reporting helpers (metrics.py)
 ├── tests/          # pytest unit tests for src/
+├── examples/       # runnable results-report demo
 ├── .github/        # CI workflow (py_compile + pytest)
 └── requirements.txt
 ```
@@ -64,3 +65,13 @@ python -m pytest tests/ -q
 The suite covers `src/metrics.py` (loading results/config, best-model
 selection, accuracy gaps, markdown tables). GitHub Actions runs
 `py_compile` plus the test suite on every push and pull request to `main`.
+
+## Examples
+
+```bash
+python examples/results_report.py
+```
+
+Prints a model-comparison report from the stored `models/results.json`:
+best model by accuracy and by AUC, the best-vs-worst accuracy gap, and
+the full markdown comparison table, using the helpers in `src/metrics.py`.
