@@ -29,7 +29,9 @@ Pneumonia recall: **97%** (catches 97% of all pneumonia cases).
 ├── app/            # Streamlit web app (app.py)
 ├── models/         # config.json, results.json, trained weights
 ├── notebooks/      # eda, preprocessing, baseline_cnn, transfer_learning, evaluation, classical_ml
-├── src/
+├── src/            # result-reporting helpers (metrics.py)
+├── tests/          # pytest unit tests for src/
+├── .github/        # CI workflow (py_compile + pytest)
 └── requirements.txt
 ```
 
@@ -51,3 +53,14 @@ explainability, Streamlit deployment. Metrics: accuracy, precision, recall, F1,
 AUC-ROC, confusion matrix.
 
 *Random seeds:* classical models use `random_state=42`; PyTorch uses deterministic MPS on Apple Silicon.
+
+## Tests and CI
+
+```bash
+pip install pytest
+python -m pytest tests/ -q
+```
+
+The suite covers `src/metrics.py` (loading results/config, best-model
+selection, accuracy gaps, markdown tables). GitHub Actions runs
+`py_compile` plus the test suite on every push and pull request to `main`.
